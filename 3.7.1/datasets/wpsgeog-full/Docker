@@ -1,0 +1,17 @@
+FROM centos:latest
+MAINTAINER Ron <ronan.jezequel@gmail.com>
+#
+ENV WRF_VERSION 3.7.1
+RUN mkdir /WPS_GEOG
+#
+RUN curl -SL https://ral.ucar.edu/sites/default/files/public/projects/ncar-docker-wrf/wpsgeogminimum-wrf-$WRF_VERSION.tar.gz | tar -xzC /WPS_GEOG
+#
+RUN yum -y install bzip2
+RUN curl -SL http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_10m.tar.bz2 | tar -jxC /WPS_GEOG
+RUN curl -SL http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_5m.tar.bz2 | tar -jxC /WPS_GEOG
+RUN curl -SL http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_2m.tar.bz2 | tar -jxC /WPS_GEOG
+RUN curl -SL http://www2.mmm.ucar.edu/wrf/src/wps_files/topo_30s.tar.bz2 | tar -jxC /WPS_GEOG
+
+#
+VOLUME /WPS_GEOG
+CMD ["true"]
